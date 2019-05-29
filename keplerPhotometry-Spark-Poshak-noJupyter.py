@@ -54,7 +54,7 @@ os.environ['PYSPARK_SUBMIT_ARGS'] = '--jars /home/mj1e16/miniconda2/lib/python2.
 # In[ ]:
 
 
-config = SparkConf().setAll([('spark.executor.cores', '6'),('spark.cores.max', '6'),('spark.driver.memory','8g'),('spark.executor.memory', '8g')])
+config = SparkConf().setAll([('spark.executor.cores', '6'),('spark.cores.max', '6'),('spark.driver.memory','1g'),('spark.executor.memory', '500m')])
 
 
 # In[ ]:
@@ -198,19 +198,25 @@ day = date[0:10]
 provstart = '/home/mj1e16/keplerPhotometry/provDump/'+day
 
 
-for x in range(3):
-     try:
-         os.mkdir(provstart+'/image'+str(x))
-     except OSError:
-         print(provstart+'/image'+str(x))
-         pass
+for x in range(1,4):
+    try:
+	subprocess.call(['mkdir',provstart])
+    except:
+	print('day dir exists')
+    try:
+	subprocess.call(['mkdir',provstart+'/image'+str(x)])
+        #os.mkdir(provstart+'/image'+str(x))
+	#print(provstart+'/image'+str(x),'Sucess')
+    except:
+        print(provstart+'/image'+str(x),'Directory Already Exists')
+        pass
 
 #os.mkdir(provstart+'/image2')
 #os.mkdir(provstart+'/image3')
 
 imageDiff = ['/home/mj1e16/iraf/kplr2009114174833_ffi-cal_TEMPLATE.fits']#,'/home/mj1e16/iraf/kplr2009114174833_ffi-cal_TEMPLATE_PLUS5000.fits']
 imageTem = ['/home/mj1e16/iraf/kplr2010019225502_ffi-cal_DIFF_PLUS5000.fits'] #,'/home/mj1e16/iraf/kplr2010019225502_ffi-cal_DIFF.fits']
-for imageNumber in range(1):
+for imageNumber in range(2,3):
     if imageNumber == 0:
         provDir = provstart+'/image1/'
         addStars('starlist',imageTem[0],provDir)
@@ -227,7 +233,7 @@ for imageNumber in range(1):
         astroprov.provcall(['/home/mj1e16/iraf/kplr2010019225502_ffi-cal_DIFF.fits','/home/mj1e16/iraf/kplr2009114174833_ffi-cal_TEMPLATE.fits'],[imageName],"differenceImage_Python2Hotpants_SQ_tmpl.provn","differenceImage",provDir)
         addStars('starlist',imageName,provDir)
         smallName = 'spark3'
-    for x0 in range(7,len(valList[0])):
+    for x0 in range(len(valList[0])):
         for x1 in range(len(valList[1])):
                 for x2 in range(len(valList[2])):
                     name = smallName+'_'+str(x0)+'_'+str(x1)+'_'+str(x2)+'_'
