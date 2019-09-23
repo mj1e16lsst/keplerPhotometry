@@ -2,7 +2,7 @@ import os
 import subprocess
 
 
-textLocater = 'findName'
+textLocater = 'beautifulsoup'
 
 dirlist = os.listdir('.')
 
