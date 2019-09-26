@@ -80,7 +80,6 @@ sqlContext = SQLContext(sc)
 # In[18]:
 
 
-
 mags = keplerSettings.magRangeSQLnaming
 for mag in mags:
     dataframe_mysql = sqlContext.read.format("jdbc").option("url",  keplerSettings.databaseLoc).option("driver", "com.mysql.jdbc.Driver").option("dbtable", "starlist_{}".format(mag)).option("user", keplerSettings.databaseUsername).option("password", keplerSettings.databasePassword).load()
@@ -115,7 +114,7 @@ def innerJoin(tableName,totGross,totGrossOriginal,variableList,mag,baseNum,diffS
     
     accuracyScore = (float(OGtotNumber)/float(baseNum))
     #print('og',OGtotNumber,'base',baseNum,'tot',totNumber)
-    completenessScore = 0
+    completenessScore = 0.
     #totSeg = []
     border = keplerSettings.border
     #df.write.format('jdbc').options(url='jdbc:mysql://localhost/Kepler',driver='com.mysql.jdbc.Driver',dbtable='result_{}'.format(tableName),user='mj1e16',password='[sqlT1G3R]').mode('append').save()
@@ -148,7 +147,8 @@ def innerJoin(tableName,totGross,totGrossOriginal,variableList,mag,baseNum,diffS
     
 #    variableList.extend(totSeg)
     #astroprov.provcall([tableName,'starlist_{}'.format(abs(mag))],['result_{}'.format(tableName)],"innerJoin_Python2Python_SQ_tmpl.provn","innerJoin",provDir)
-    compScore = 1. - (completenessScore/float(actualtTotObjects))
+    compScore = 1. - (float(completenessScore)/float(actualtTotObjects))
+    print(compScore,'compScore')
     #score = (weight*compScore) + ((1.-weight)*accuracyScore)
     #print(score,compScore,accuracyScore)
     sqlContext.uncacheTable(temptableName+'match')
@@ -243,12 +243,6 @@ def hotpantsQuality(image):
 valList = keplerSettings.sextractorValueList
 
 
-# In[21]:
-
-
-#valList = [np.linspace(1,10,1),np.linspace(1,9,2),['gauss_1.5_3x3.conv']] # for testing
-
-
 # In[11]:
 
 
@@ -295,57 +289,34 @@ def evaluateImage(valList,simImage,OGImage,ccd,median,norm,minmag,baseNum,smallN
 # In[23]:
 
 
-# ccd = [44,63,79]
-# median = [0,1,2]
-# mags = np.linspace(-7,-1,7)
-
-ccd = [44] #,63,79]
-#ccd = keplerSettings.ccdExtensions
+ccd = keplerSettings.ccdExtensions
 median = [1]
 mags = keplerSettings.magRange
 
 
-# In[13]:
-
-
-
-# norms = []
-# for inc,c in enumerate(ccd):
-#     totVals = []
-#     x =median
-#     totVals.append(hotpantsQuality('/home/mj1e16/Simages/diff_{}_{}.fits'.format(c,x)))
-#     norms.append([float(y/totVals[1]) for y in totVals])
-# #print(norms)
-# totVals = 
-# norm = 
-
-
-# In[85]:
-
-
-#valList = [np.linspace(1,10,2),np.linspace(1,9,2),['gauss_1.5_3x3.conv']]
-
-
 # In[24]:
 
+c = ccd[0]
+med = median[0]
+norm = 1.0
 
 ### Make function to replace starlist
 bestSettings = []
 baseSettings = [valList[0][0],valList[1][0],valList[2][0]]
 #starting = [4,4,14]
-for inc,c in enumerate(ccd):
-    for inmed,med in enumerate(median):
-        ogim = keplerSettings.simulatedImageDirectory+'diff_{}_{}.fits'.format(c,med)
-        baseNames = makeConfig(baseSettings,tableName='baseTable')
-        baseNum = findObjects(baseNames[0],baseNames[1],baseNames[2],imagename=ogim,base='yes')
-        norm = 1.0
-        for mag in mags:
-            sqlContext.cacheTable('starlist_{}'.format(abs(mag)))            
-            imName = keplerSettings.simulatedImageDirectory+'diff_{}_{}{}_alt.fits'.format(c,med,mag)
-            tabName = 'bigSimsTest2_{}_{}_{}'.format(c,med,abs(mag))
-            evaluateImage(valList,imName,ogim,'ccd_{}'.format(c),'median_{}'.format(med),norm,mag,baseNum,smallName=tabName,dbtabname='results'+tabName)
-            sqlContext.uncacheTable('starlist_{}'.format(abs(mag)))
-            #starting = bestSettings[-1]
+# for inc,c in enumerate(ccd):
+#     for inmed,med in enumerate(median):
+ogim = keplerSettings.simulatedImageDirectory+'diff_{}_{}.fits'.format(c,med)
+
+for mag in mags:
+    baseNames = makeConfig(baseSettings,tableName='baseTable')
+    baseNum = findObjects(baseNames[0],baseNames[1],baseNames[2],imagename=ogim,base='yes')
+    sqlContext.cacheTable('starlist_{}'.format(abs(mag)))            
+    imName = keplerSettings.simulatedImageDirectory+'diff_{}_{}{}_alt.fits'.format(c,med,mag)
+    tabName = keplerSettings.databaseTableName+'_{}_{}_{}'.format(c,med,abs(mag))
+    evaluateImage(valList,imName,ogim,'ccd_{}'.format(c),'median_{}'.format(med),norm,mag,baseNum,smallName=tabName,dbtabname='results'+tabName)
+    sqlContext.uncacheTable('starlist_{}'.format(abs(mag)))
+    #starting = bestSettings[-1]
 
 
 # In[ ]:

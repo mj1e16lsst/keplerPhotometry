@@ -22,7 +22,7 @@ sparkConfig = [('spark.executor.cores', '6'),('spark.cores.max', '6'),('spark.dr
 magRange = [-7,-6,-5,-4,-3,-2,-1]
 magRangeSQLnaming = [abs(x) for x in magRange] # mag range, without minus signs as sql tables can not include them
 
-databaseTableName = 'bigSim' # start of the names for tables produced by the cose, each will be proceded by _{}_{}_{}.format(ccd,1,mag) followed by the indexes of the values used in the sextractorValueList
+databaseTableName = 'bruteForce' # start of the names for tables produced by the cose, each will be proceded by _{}_{}_{}.format(ccd,1,mag) followed by the indexes of the values used in the sextractorValueList
 databaseLoc = "jdbc:mysql://localhost/Kepler" # url of the database for mysqlcontext
 databaseUsername = "mj1e16"
 databasePassword = "[sqlT1G3R]"
@@ -48,7 +48,9 @@ sextractorValueList = [np.linspace(1,10,10),np.linspace(1,9,9),['default.conv','
                                                     'mexhat_4.0_9x9.conv','mexhat_5.0_11x11.conv','tophat_1.5_3x3.conv',
                                                     'tophat_2.0_3x3.conv','tophat_2.5_3x3.conv','tophat_3.0_3x3.conv',
                                                     'tophat_4.0_5x5.conv','tophat_5.0_5x5.conv']]# value ranges of attributes in corresponding order
-#ccdExtensions = [44] # ccd extension of the target image 
+
+#sextractorValueList = [np.linspace(1,10,2),np.linspace(1,9,2),['default.conv']]# value ranges of attributes in corresponding order
+#ccdExtensions = [63] # ccd extension of the target image 
 
 ccdExtensions = [int((sys.argv[1]))]
     
