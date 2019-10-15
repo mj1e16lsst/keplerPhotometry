@@ -14,7 +14,7 @@ do
 	source activate astroconda
 	cd /home/mj1e16/keplerPhotometry
 	python repo-updateStarlist-pyVersion.py $VARIABLE
-	python repo-workFlow-Single-update-toPy.py $VARIABLE
+	python repo-workFlow-Single-update-Hillclimb-topy.py $VARIABLE
 done
 
 
