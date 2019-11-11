@@ -2,7 +2,7 @@
 
 cp /home/mj1e16/keplerPhotometry/keplerSettings.py /home/mj1e16/iraf/keplerSettings.py
 
-for VARIABLE in 44 63 79
+for VARIABLE in 63
 do 
 	 
 	source activate iraf270
@@ -16,5 +16,7 @@ do
 	python repo-updateStarlist-pyVersion.py $VARIABLE
 	python repo-workFlow-Single-update-Hillclimb-topy.py $VARIABLE
 done
+
+
 
 
