@@ -1,0 +1,52 @@
+{
+  "var": {
+    "input0": [
+      {
+        "@id": "run:entity_lsstsim1561505412.78_2"
+      }
+    ], 
+    "output0": [
+      {
+        "@id": "run:entity_lsstsim1561505412.78_1"
+      }
+    ], 
+    "input0value": [
+      {
+        "@value": "1", 
+        "@type": "xsd:string"
+      }
+    ], 
+    "messageStartTime": [
+      {
+        "@type": "xsd:dateTime", 
+        "@value": "2019-06-26T00:30:12"
+      }
+    ], 
+    "template": [
+      "daoStarFinder_PythonCode2Images_SQ_tmpl.provn"
+    ], 
+    "output0value": [
+      {
+        "@value": "2", 
+        "@type": "xsd:string"
+      }
+    ], 
+    "messageEndTime": [
+      {
+        "@type": "xsd:dateTime", 
+        "@value": "2019-06-26T00:30:12"
+      }
+    ], 
+    "message": [
+      {
+        "@id": "urn_uuid:daoStarFinderd73aa21a-6180-4c38-bb49-2c523b4f10da"
+      }
+    ]
+  }, 
+  "context": {
+    "run": "http://example.org/", 
+    "lsim": "http://example.org/", 
+    "xsd": "http://www.w3.org/2001/XMLSchema#", 
+    "urn_uuid": "urn:uuid:"
+  }
+}

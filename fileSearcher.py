@@ -2,7 +2,7 @@ import os
 import subprocess
 
 
-textLocater = 'beautifulsoup'
+textLocater = 'font'
 
 dirlist = os.listdir('.')
 
