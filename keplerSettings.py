@@ -22,7 +22,7 @@ sparkConfig = [('spark.executor.cores', '6'),('spark.cores.max', '6'),('spark.dr
 magRange = [-7,-6,-5,-4,-3,-2,-1]
 magRangeSQLnaming = [abs(x) for x in magRange] # mag range, without minus signs as sql tables can not include them
 
-databaseTableName = 'bruteForce' # start of the names for tables produced by the cose, each will be proceded by _{}_{}_{}.format(ccd,1,mag) followed by the indexes of the values used in the sextractorValueList
+databaseTableName = 'hillClimbOrderino' # start of the names for tables produced by the code, each will be proceded by _{}_{}_{}.format(ccd,1,mag) followed by the indexes of the values used in the sextractorValueList
 databaseLoc = "jdbc:mysql://localhost/Kepler" # url of the database for mysqlcontext
 databaseUsername = "mj1e16"
 databasePassword = "[sqlT1G3R]"
@@ -39,6 +39,7 @@ xyofSearchBox = 0.5 # used to cross match the object with a square box with side
 Weight = 0.5 # relative importance of completeness vs accuracy - Quality = weight*completeness + (1-weight)*accuracy
 nsegs = 4 # Number of segments for which PSFs are calculated in both x and y - too many segments and there may not be enough stars for PSF fitting
 totalObjects = 1000 # total number of objects to be simulated accross each image
+#weightRange = [1,2,3,4,5,6,7,8,9] # test for hill climbing, will be these numbers / 10, important to keep as integers to avoid decimal points in sql column names
 
 sextractorAttributeList = ['DETECT_THRESH','DETECT_MINAREA','FILTER_NAME'] # name of attributes to be altered
 sextractorValueList = [np.linspace(1,10,10),np.linspace(1,9,9),['default.conv','gauss_1.5_3x3.conv','gauss_2.0_3x3.conv','gauss_2.0_5x5.conv',
@@ -50,8 +51,8 @@ sextractorValueList = [np.linspace(1,10,10),np.linspace(1,9,9),['default.conv','
                                                     'tophat_4.0_5x5.conv','tophat_5.0_5x5.conv']]# value ranges of attributes in corresponding order
 
 #sextractorValueList = [np.linspace(1,10,2),np.linspace(1,9,2),['default.conv']]# value ranges of attributes in corresponding order
-#ccdExtensions = [63] # ccd extension of the target image 
+#ccdExtensions = [44] # ccd extension of the target image 
 
 ccdExtensions = [int((sys.argv[1]))]
-    
+
 

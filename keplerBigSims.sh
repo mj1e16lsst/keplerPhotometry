@@ -1,5 +1,6 @@
 #!/bin/bash
 
+cp /home/mj1e16/keplerPhotometry/keplerSettings.py /home/mj1e16/iraf/keplerSettings.py
 
 for VARIABLE in 44 63 79
 do 
@@ -15,4 +16,5 @@ do
 	python repo-updateStarlist-pyVersion.py $VARIABLE
 	python repo-workFlow-Single-update-toPy.py $VARIABLE
 done
+
 

@@ -1,5 +1,5 @@
 import subprocess
-import keplerSettings
+import /home/mj1e16/keplerPhotometry/keplerSettings
 import os
 
 ccds = [44,63,79]

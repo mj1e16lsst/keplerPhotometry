@@ -276,7 +276,7 @@ def evaluateImage(valList,simImage,OGImage,ccd,median,norm,minmag,baseNum,smallN
                                    minmag=x[6], xy_0=int(x[7]),xy_1=int(x[8]),xy_2=int(x[9]),xy_3=int(x[10]),xy_4=int(x[11]),
                                    xy_5=int(x[12]),xy_6=int(x[13]),xy_7=int(x[14]),xy_8=int(x[15]),xy_9=int(x[16]),xy_10=int(x[17]),
                                    xy_11=int(x[18]),xy_12=int(x[19]),xy_13=int(x[20]),xy_14=int(x[21]),xy_15=int(x[22]),
-                                   totNum=int(x[23]),totGross=int(x[24]),OGtot=int(x[25]),OGtotGross=int(x[26]),completenessScore=int(x[27]),accuracyScore=int(x[28])))
+                                   totNum=int(x[23]),totGross=int(x[24]),OGtot=int(x[25]),OGtotGross=int(x[26]),completenessScore=x[27],accuracyScore=x[28]))
 
     schemaKepler = sqlContext.createDataFrame(kepler)
     #print('finalResults_{}_{}_{}'.format(ccd,median,minmag))
